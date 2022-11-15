@@ -1,5 +1,6 @@
 const {promises:fs} = require ('fs');
-const data_products = ('./data/products.json'); 
+// const data_products = ('./data/products.json'); 
+const data_products = ('./DB/data/products.json'); 
 
 class Products {
     // static lastProductId = data.products[data.products.length-1].id;

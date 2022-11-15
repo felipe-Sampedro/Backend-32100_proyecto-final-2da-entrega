@@ -1,5 +1,5 @@
 const Contenedor = require('../model/cart')
-const carrito = new Contenedor('../data/cart.json')
+const carrito = new Contenedor()
 
 const Products = require('../model/products')
 const products = new Products('../data/products.json')
