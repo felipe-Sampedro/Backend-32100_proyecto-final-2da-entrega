@@ -3,9 +3,9 @@ const envConfig = require('./config');
 
 const PORT  = process.env.PORT || 8080;
 
-const ASYNC_DATASURCE ={
-  mongo: require('./models/containers/mongo.container'),
-}
+// const ASYNC_DATASURCE ={
+//   mongo: require('./models/containers/mongo.container'),
+// }
 
 
 const connectedServer = app.listen(PORT, ()=>{
