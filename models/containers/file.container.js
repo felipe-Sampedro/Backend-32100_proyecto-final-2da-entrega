@@ -36,7 +36,6 @@ class FileContainer {
     getById(id) {  
       const data = this.list;          
       const item = data.find(item => item.id == id);
-      
       if (!item) {
         const message = `${this.resource} with id ${id} does not exist in our records`;
         throw new HttpError(HTTP_STATUS.NOT_FOUND, message);

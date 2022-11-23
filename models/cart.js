@@ -2,7 +2,7 @@ const {promises:fs} = require ('fs');
 const data_cart = ('./DB/data/cart.json'); 
 const data_products = ('./DB/data/products.json'); 
 
-const Products = require('../model/products')
+const Products = require('../models/products')
 const products = new Products('../DB/data/products.json')
 
 

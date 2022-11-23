@@ -1,10 +1,9 @@
-const { HTTP_STATUS } = require('../constants/api.constants')
-const { ProductsDao } = require('../model/daos/app.daos')
-const { successResponse } = require('../utils/api.utils')
-// const Products = require('../model/products')
-// const products = new Products()
+const { HTTP_STATUS } = require('../constants/api.constants');
+const { ProductsDao } = require('../models/daos/app.daos');
+const { successResponse } = require('../utils/api.utils');
 
 const productsDao= new ProductsDao()
+
 
 class ProductsControllers {
   
@@ -20,9 +19,9 @@ class ProductsControllers {
     };
   
     getProductsById = async (req, res, next) => {   
-      const { Id } =  req.params;
+      const { id } =  req.params;
       try{
-        const products = await productsDao.getById(Id);
+        const products = await productsDao.getById(id);
         const response = successResponse(products);
         res.status(HTTP_STATUS.OK).json(response);
       }
@@ -43,9 +42,9 @@ class ProductsControllers {
     };
   
     updateProductsById = async (req, res,next) => {
-      const { Id } = req.params;
+      const { id } = req.params;
       try {
-        const updateProduct = await productsDao.update(Id, req.body);
+        const updateProduct = await productsDao.update(id, req.body);
         const response = successResponse(updateProduct);
         res.status(HTTP_STATUS.OK).json(response);
       }
@@ -55,9 +54,9 @@ class ProductsControllers {
     };
   
     deleteProductsById = async (req, res, next) => {
-      const { Id } = req.params;
+      const { id } = req.params;
       try {
-        const deletedProduct = await productsDao.delete(Id);
+        const deletedProduct = await productsDao.delete(id);
         const response = successResponse(deletedProduct);
         res.status(HTTP_STATUS.OK).json(response);
       }

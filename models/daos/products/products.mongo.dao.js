@@ -3,7 +3,7 @@ const MongoContainer = require("../../containers/mongo.container");
 
 const collection = "products"
 const cartSchema = new Schema({
-    timestamp: { type: Date, default: new Date().toLocaleString() },
+    timestamp: { type: Date, default: new Date.now() },
     name: { type: String, required: true},
     code: { type: Number, required: true},
     image: { type: String, required: true},
