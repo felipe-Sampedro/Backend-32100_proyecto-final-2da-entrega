@@ -10,7 +10,8 @@ module.exports={
         carts: cartsJson
     },
     mongodb:{
-        uri:`mongodb+srv://felipe182:${envConfig.DB_PASSWORD}@32100backendfsg.4ksy2x1.mongodb.net/?retryWrites=true&w=majority`
+        uri: `mongodb+srv://coderhouse:${envConfig.DB_PASSWORD}@cluster0.zhv02a9.mongodb.net/?retryWrites=true&w=majority`
+    
     },
     firebase:{
         credentials: firebaseConfig
