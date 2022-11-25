@@ -8,40 +8,58 @@ const productsDao= new ProductsDao()
 
 class CartsControllers{
 
-    getAllCart = async (req, res) => {
-        const dataListC= await cartsDao.getAll()
-        return res.send(dataListC);
-    }
-
-
-    getByIdCart= async (req,res) => {
-        const {id} = req.params
-        const filter_cart = await cartsDao.getById(id)
-        if (!filter_cart){
-        return res.status(404).send({state:"error", error:`the cart with id: ${id} doesn't exist!`})
+    getAllCart = async (req, res, next) => {
+        try {
+            const dataListC= await cartsDao.getAll()
+            const response = successResponse(dataListC)
+            return res.status(HTTP_STATUS.OK).send(response);
+        } catch (error) {
+            next(error)
         }
-        return res.send({state:"Succses",filter_cart});
     }
 
-    saveCart= async (req,res) => {
-        const {productos} = req.body
-        const newCart = await cartsDao.saveCart(productos)
-        return res.send({state:"Succes",result: 'the id of de new cart is:' + newCart.id});
+    getByIdCart= async (req,res,next) => {
+        const {id} = req.params
+        try {
+            const filter_cart = await cartsDao.getById(id)
+            const response = successResponse(filter_cart)
+            return res.send({state:"Succses",response});
+        } catch (error) {
+            next(error)
+        }
+
+    }
+
+    saveCart= async (req,res, next) => {
+        try {
+            const newCart = await cartsDao.save(req.body)
+            const response = successResponse(newCart);
+            res.status(HTTP_STATUS.CREATED).json(response);
+        } catch (error) {
+            next(error);
+        }
+
     };
 
-
-    saveCartProd= async (req,res) => {
+    saveCartProd= async (req,res,next) => {
         const {id_cart,id_prod} = req.params
-        const data_Cart = await cartsDao.saveCartProd(id_cart,id_prod) 
-        return res.send({state:"Succes",result: data_Cart});
+        try {
+            const data_Cart = await cartsDao.saveCartProd(id_cart,id_prod) 
+            const response = successResponse(data_Cart)
+            res.status(HTTP_STATUS.OK).json(response)
+        } catch (error) {
+            next(error)
+        }
+
     };
 
 
     deleteByIdCart_Prods = async (req,res,next)=> {
+        const {id_cart,id_prod} = req.params 
         try {
-            const {id_cart,id_prod} = req.params 
             const data_C = await cartsDao.deleteByIdCart_Prods(id_cart,id_prod) 
-            return res.send({state:"success", resul:`the Item with id: ${id_prod} of the cart with id: ${id_cart} has been deleted`})
+            const response = successResponse(data_C)
+            res.status(HTTP_STATUS.OK).json(response)
         } 
         catch (error) {
             next(error);
@@ -49,13 +67,17 @@ class CartsControllers{
     }
 
 
-    deleteByIdCart = async (req,res)=> {
+    deleteByIdCart = async (req,res,next)=> {
         const {id} = req.params 
-        const data_C = await cartsDao.delete(id)
-    
-        return res.send({state:"success", resul:`the cart with id: ${id} has been deleted`})
-    }
+        try {
+            const data_C = await cartsDao.delete(id)
+            const response = successResponse(data_C);
+            res.status(HTTP_STATUS.CREATED).json(response);
+        } catch (error) {
+            next(error)
+        }
 
+    }
 }
 
   

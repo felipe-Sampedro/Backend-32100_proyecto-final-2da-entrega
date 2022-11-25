@@ -12,7 +12,7 @@ const dataSource = DATASOURCE_BY_ENV[envConfig.DATASOURCE]
 console.log(envConfig.DATASOURCE);
 
 const connectedServer = app.listen(PORT, ()=>{
-    if(envConfig.DATASOURCE === 'mongo' || envConfig.DATASOURCE === 'firebase'){
+    if(envConfig.DATASOURCE === 'firebasewww' || envConfig.DATASOURCE === 'mongo'){
         dataSource.connect().then(()=>{
         console.log("Ready an running on port", PORT)
         console.log("Connected to" + envConfig.DATASOURCE);
@@ -22,6 +22,18 @@ const connectedServer = app.listen(PORT, ()=>{
 
 })
 
-connectedServer.on('error',(error)=>{
-    console.error('Error',error);
-})
+
+// app.listen(PORT, () => {
+//     if(Object.keys(ASYNC_DATASURCE).includes(envConfig.DATASOURCE || '')){
+//       ASYNC_DATASURCE[envConfig.DATASOURCE].connect()
+//         .then(() => {
+//           console.log('Conected to' + envConfig.DATASOURCE);
+//         })
+//     }    
+//       console.log(`Server is up and running on port: `, PORT);  
+//   });
+
+
+// connectedServer.on('error',(error)=>{
+//     console.error('Error',error);
+// })

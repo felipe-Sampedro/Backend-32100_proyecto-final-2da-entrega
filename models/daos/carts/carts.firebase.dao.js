@@ -11,38 +11,39 @@ const productsFirebaseDao = new ProductsFirebaseDao();
 const collection = "carts"
 class CartsFirebaseDao extends FirebaseContainer{
     constructor(){
-        super(Collection)
+        super(collection)
     }
 
-    async getCartProds (cartId){
+    async getCartProds (id_cart){
 
-        const cart = await this.getById(cartId);
+        const cart = await this.getById(id_cart);
         return cart.products
     }
 
-    async addProductToCart(cartId, productId){
 
-        await productsFirebaseDao.getById(productId)
-        const docRef = this.query.doc(cartId);        
+    async saveCartProd(id_cart, id_prod){
+
+        await productsFirebaseDao.getById(id_prod)
+        const docRef = this.query.doc(id_cart);        
 
         if (!docRef) {
-            const message = `Resource with id ${cartId} does not exists`
+            const message = `Resource with id ${id_cart} does not exists`
             throw new HttpError(HTTP_STATUS.NOT_FOUND, message)
         }
         
-        return await docRef.update({ products: FieldValue.arrayUnion(productId) })
+        return await docRef.update({ products: FieldValue.arrayUnion(id_prod) })
     }
 
-    async removeProductFromCart(cartId, productId) {
+    async deleteByIdCart_Prods(id_cart, id_prod) {
 
-        await productsFirebaseDAO.getById(productId)
-        const docRef = this.query.doc(cartId)        
+        await productsFirebaseDao.getById(id_prod)
+        const docRef = this.query.doc(id_cart)        
 
          if (!docRef) {
-            const message = `Resource with id ${cartId} does not exists`
+            const message = `Resource with id ${id_cart} does not exists`
              throw new HttpError(HTTP_STATUS.NOT_FOUND, message)
         }        
-        return await docRef.update({ products: FieldValue.arrayRemove(productId) })
+        return await docRef.update({ products: FieldValue.arrayRemove(id_prod) })
     }       
 
 }
